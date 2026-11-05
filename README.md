@@ -1,54 +1,69 @@
-# Atividade 1 --- Mocks e Injeção de Dependência 
+# 🧪 Atividade 1 — Mocks e Injeção de Dependência
 
-Projeto desenvolvido para a disciplina, contendo a implementação dos
-testes unitários localizados em `server/test/`.
+Projeto desenvolvido para a disciplina, com a implementação de testes unitários no diretório `server/test/`.
 
-## Implementações realizadas
+---
 
-Foram criados nove arquivos de testes unitários, seguindo as orientações
-do README original do projeto (disponível em
-`atvividade-aula2-aluno/atvividade-aula2-aluno/README.md`):
+## 📌 Visão geral
 
-    server/test/
-    ├── validation.test.ts
-    ├── database/
-    │   ├── unique-violation.test.ts
-    │   └── foreign-key-violation.test.ts
-    └── modules/
-        ├── courses/
-        │   ├── courses.service.test.ts
-        │   └── courses.repository.test.ts
-        ├── students/
-        │   ├── students.service.test.ts
-        │   └── students.repository.test.ts
-        └── enrollments/
-            ├── enrollments.service.test.ts
-            └── enrollments.repository.test.ts
+A atividade reúne testes voltados às validações, aos serviços e aos repositórios da aplicação. Para isolar os componentes durante os testes, são utilizadas técnicas de **stub**, **mock** e **spy**, além de dependências simuladas.
 
-## Cenários contemplados pelos testes
+## 🗂️ Estrutura dos testes
 
--   **Validações** (52 testes): abrangem `positiveInteger`, `parseId`,
-    `validateName`, `validateBody`, `isUniqueViolation` e
-    `isForeignKeyViolation`.
--   **Serviços** (54 testes): incluem `CoursesService`,
-    `StudentsService` e `EnrollmentsService`, utilizando repositórios
-    simulados (`jest.Mocked<...>`) com as técnicas de **stub**, **mock**
-    e **spy**.
--   **Repositórios** (24 testes): contemplam `PgCourseRepository`,
-    `PgStudentRepository` e `PgEnrollmentRepository`, com uma instância
-    simulada de `Database` (`{ query: jest.fn<Database["query"]>() }`).
+Os nove arquivos de teste estão organizados da seguinte maneira:
 
-## Resultados obtidos
+```text
+server/test/
+├── validation.test.ts
+├── database/
+│   ├── unique-violation.test.ts
+│   └── foreign-key-violation.test.ts
+└── modules/
+    ├── courses/
+    │   ├── courses.service.test.ts
+    │   └── courses.repository.test.ts
+    ├── students/
+    │   ├── students.service.test.ts
+    │   └── students.repository.test.ts
+    └── enrollments/
+        ├── enrollments.service.test.ts
+        └── enrollments.repository.test.ts
+```
 
-  Comando                    Resultado
-  -------------------------- ----------------------------------------------------------
-  `npm test`                 **9 suites, 106 testes executados com sucesso**
-  `npm run test:coverage`    100% de cobertura nos 10 arquivos considerados no escopo
-  `npm run test:typecheck`   Execução concluída sem erros
-  `npm run build`            Compilação concluída sem erros
+## 🎯 Cobertura dos cenários
 
-## Instruções para execução
+| Categoria | Cenários contemplados |
+|:--|:--|
+| **Validações — 52 testes** | `positiveInteger`, `parseId`, `validateName`, `validateBody`, `isUniqueViolation` e `isForeignKeyViolation`. |
+| **Serviços — 54 testes** | `CoursesService`, `StudentsService` e `EnrollmentsService`, utilizando repositórios simulados (`jest.Mocked<...>`) e as técnicas de **stub**, **mock** e **spy**. |
+| **Repositórios — 24 testes** | `PgCourseRepository`, `PgStudentRepository` e `PgEnrollmentRepository`, com uma instância simulada de `Database`: `{ query: jest.fn<Database["query"]>() }`. |
 
-    cd atvividade-aula2-aluno/atvividade-aula2-aluno/server
-    npm ci
-    npm test
+## 📊 Resultados
+
+| Comando | Resultado |
+|:--|:--|
+| `npm test` | **9 suites e 106 testes**, todos passando. |
+| `npm run test:coverage` | **100%** nos 10 arquivos de escopo. |
+| `npm run test:typecheck` | Concluído sem erros. |
+| `npm run build` | Concluído sem erros. |
+
+## ⚙️ Como executar
+
+No terminal, acesse a pasta do servidor e instale as dependências:
+
+```bash
+cd atvividade-aula2-aluno/atvividade-aula2-aluno/server
+npm ci
+```
+
+Em seguida, execute os testes:
+
+```bash
+npm test
+```
+
+---
+
+<p align="center">
+  <sub>Atividade acadêmica — Mocks e Injeção de Dependência</sub>
+</p>
