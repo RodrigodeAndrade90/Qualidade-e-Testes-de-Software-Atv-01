@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="https://www.cps.sp.gov.br/favicon.ico" />
+  <title>Laboratório REST</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+
+<body>
+  <header>
+    <h1>Laboratório REST<span>.</span></h1>
+    <p>Faça uma chamada. Analise o retorno. Compreenda a comunicação.</p>
+  </header>
+  <main>
+    <section class="panel" aria-labelledby="request-title">
+      <div class="section-title"><span class="step">01</span>
+        <h2 id="request-title">Solicitação</h2>
+      </div>
+      <label for="example">Ação</label><select id="example"></select>
+      <p class="hint" id="example-hint"></p>
+      <form id="request-form">
+        <label for="base">URL base</label><input id="base" type="url" required>
+        <div class="request-line">
+          <div><label for="method">Método</label><select id="method" disabled>
+              <option>GET</option>
+              <option>POST</option>
+            </select></div>
+          <div><label for="path">Rota do recurso</label><input id="path" value="/api/students" required></div>
+        </div>
+        <label for="body">Dados enviados · JSON</label><textarea id="body" rows="7" spellcheck="false"
+          aria-describedby="body-hint"></textarea>
+        <p id="body-hint" class="hint">POST cadastra recursos. GET não envia conteúdo
+          neste ambiente de testes.</p>
+        <button id="send" type="submit">Executar chamada →</button>
+      </form>
+      <h3>Solicitação preparada</h3>
+      <p class="hint">Verbo HTTP, URL e cabeçalhos definidos pelo cliente. O navegador pode incluir cabeçalhos adicionais.</p>
+      <pre id="request-preview"></pre>
+    </section>
+    <section class="panel" aria-labelledby="response-title">
+      <div class="section-title"><span class="step">02</span>
+        <h2 id="response-title">Retorno</h2>
+      </div>
+      <div id="status" class="status" role="status" aria-live="polite">Aguardando a primeira chamada</div>
+      <p id="response-meta" class="hint">As informações recebidas serão exibidas aqui.</p>
+      <h3>Cabeçalhos da resposta</h3>
+      <p class="hint">Informações HTTP: formato do conteúdo, cache e dados do servidor.</p>
+      <pre id="response-headers">—</pre>
+      <h3>Conteúdo retornado</h3>
+      <pre id="response-body">Execute um dos exemplos disponíveis para iniciar.</pre>
+    </section>
+  </main>
+</body>
+
+</html>
