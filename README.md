@@ -1,4 +1,4 @@
-# Atividade 1 --- Mocks e Injeção de Dependência {#atividade-1-mocks-e-injeção-de-dependência align="center"}
+# Atividade 1 --- Mocks e Injeção de Dependência 
 
 Projeto desenvolvido para a disciplina, contendo a implementação dos
 testes unitários localizados em `server/test/`.
