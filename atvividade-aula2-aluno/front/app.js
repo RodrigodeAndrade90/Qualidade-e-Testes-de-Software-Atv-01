@@ -1,37 +1,37 @@
 const examples = [
-  ["Alunos · consultar todos", "GET", "/api/students"],
-  ["Alunos · localizar", "GET", "/api/students/258001"],
+  ["Alunos · listar", "GET", "/api/students"],
+  ["Alunos · buscar", "GET", "/api/students/258001"],
   [
-    "Alunos · cadastrar",
+    "Alunos · criar",
     "POST",
     "/api/students",
     { ra: 258099, name: "Estudante de teste" },
   ],
-  ["Disciplinas · consultar todas", "GET", "/api/courses"],
-  ["Disciplinas · localizar", "GET", "/api/courses/13"],
+  ["Disciplinas · listar", "GET", "/api/courses"],
+  ["Disciplinas · buscar", "GET", "/api/courses/13"],
   [
-    "Disciplinas · cadastrar",
+    "Disciplinas · criar",
     "POST",
     "/api/courses",
     { name: "Disciplina de teste REST" },
   ],
-  ["Matrículas · consultar todas", "GET", "/api/enrollments"],
-  ["Matrículas · localizar", "GET", "/api/enrollments/student/258001/course/1"],
+  ["Matrículas · listar", "GET", "/api/enrollments"],
+  ["Matrículas · buscar", "GET", "/api/enrollments/student/258001/course/1"],
   [
-    "Matrículas · cadastrar",
+    "Matrículas · criar",
     "POST",
     "/api/enrollments",
     { studentRa: 258099, courseId: 13 },
   ],
   [
-    "Erro 400 · informações incorretas",
+    "Erro 400 · dados inválidos",
     "POST",
     "/api/students",
     { ra: -1, name: "A" },
   ],
-  ["Erro 404 · aluno não encontrado", "GET", "/api/students/2147483647"],
+  ["Erro 404 · aluno inexistente", "GET", "/api/students/2147483647"],
   [
-    "Erro 409 · matrícula duplicada na base inicial",
+    "Erro 409 · matrícula já existente no seed",
     "POST",
     "/api/enrollments",
     { studentRa: 258001, courseId: 1 },
@@ -50,7 +50,7 @@ function hasBody() {
 function requestUrl() {
   const base = new URL($("base").value);
   if (!["http:", "https:"].includes(base.protocol))
-    throw new Error("Informe uma URL que utilize HTTP ou HTTPS.");
+    throw new Error("Informe uma URL com protocolo HTTP ou HTTPS.");
   const path = $("path").value;
   const method = $("method").value;
   const collection = /^\/api\/(students|courses|enrollments)$/;
@@ -61,7 +61,7 @@ function requestUrl() {
     (method === "POST" && collection.test(path));
 
   if (!supported) {
-    throw new Error("Escolha um caminho suportado para a opera\u00e7\u00e3o selecionada.");
+    throw new Error("O caminho não é válido para a operação selecionada.");
   }
   return new URL(base.href.replace(/\/$/, "") + path).href;
 }
@@ -71,7 +71,7 @@ function preview() {
   try {
     url = requestUrl();
   } catch {
-    url = "(URL ou rota inválida)";
+    url = "(URL ou caminho inválido)";
   }
   $("request-preview").textContent =
     `${$("method").value} ${url}\nAccept: application/json${hasBody() ? "\nContent-Type: application/json\n\n" + $("body").value : ""}`;
@@ -81,7 +81,7 @@ function chooseExample() {
   $("method").value = method;
   $("path").value = path;
   $("body").value = body ? JSON.stringify(body, null, 2) : "";
-  $("example-hint").textContent = "Altere os códigos identificadores e os dados antes de executar.";
+  $("example-hint").textContent = "Revise os identificadores e os dados antes de enviar.";
   preview();
 }
 $("example").addEventListener("change", chooseExample);
@@ -95,11 +95,11 @@ $("request-form").addEventListener("submit", async (event) => {
     if (hasBody()) body = JSON.stringify(JSON.parse($("body").value));
   } catch (error) {
     $("status").className = "status error";
-    $("status").textContent = "A chamada não foi realizada";
+    $("status").textContent = "Requisição não enviada";
     $("response-meta").textContent = error.message;
     $("response-headers").textContent = "—";
     $("response-body").textContent =
-      "Revise a URL, a rota ou o JSON e faça uma nova tentativa.";
+      "Revise a URL, o caminho ou o JSON e tente novamente.";
     return;
   }
   const entry = Object.fromEntries(
@@ -109,9 +109,9 @@ $("request-form").addEventListener("submit", async (event) => {
   if (body !== undefined) headers["Content-Type"] = "application/json";
   $("send").disabled = true;
   $("status").className = "status";
-  $("status").textContent = "Executando…";
+  $("status").textContent = "Enviando…";
   $("response-headers").textContent = "—";
-  $("response-body").textContent = "Esperando o retorno…";
+  $("response-body").textContent = "Aguardando resposta…";
   $("response-meta").textContent = url;
   const start = performance.now();
   try {
@@ -130,8 +130,8 @@ $("request-form").addEventListener("submit", async (event) => {
     $("response-headers").textContent =
       Array.from(response.headers, ([name, value]) => `${name}: ${value}`).join(
         "\n",
-      ) || "(nenhum cabeçalho disponível)";
-    let formatted = text || "(retorno sem conteúdo)";
+      ) || "(nenhum header acessível)";
+    let formatted = text || "(resposta sem corpo)";
     try {
       formatted = JSON.stringify(JSON.parse(text), null, 2);
     } catch {
@@ -140,7 +140,7 @@ $("request-form").addEventListener("submit", async (event) => {
     $("response-body").textContent = formatted;
   } catch (error) {
     $("status").className = "status error";
-    $("status").textContent = "Não foi possível conectar";
+    $("status").textContent = "Falha de conexão";
     $("response-meta").textContent =
       `${Math.round(performance.now() - start)} ms · Sem resposta HTTP disponível`;
     $("response-body").textContent =

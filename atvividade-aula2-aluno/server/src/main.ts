@@ -1,7 +1,7 @@
 import { createApp } from "./app";
 import { pool } from "./database/connection";
 
-// Cria a aplicação e inicia o servidor HTTP.
+// Monta a aplicação e coloca o servidor HTTP em execução.
 const app = createApp(pool);
 const port = Number(process.env.SERVER_PORT);
 

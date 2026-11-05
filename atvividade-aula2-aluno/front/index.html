@@ -13,14 +13,14 @@
 <body>
   <header>
     <h1>Laboratório REST<span>.</span></h1>
-    <p>Faça uma chamada. Analise o retorno. Compreenda a comunicação.</p>
+    <p>Faça uma requisição. Analise a resposta. Entenda a comunicação.</p>
   </header>
   <main>
     <section class="panel" aria-labelledby="request-title">
       <div class="section-title"><span class="step">01</span>
-        <h2 id="request-title">Solicitação</h2>
+        <h2 id="request-title">Requisição</h2>
       </div>
-      <label for="example">Ação</label><select id="example"></select>
+      <label for="example">Operação</label><select id="example"></select>
       <p class="hint" id="example-hint"></p>
       <form id="request-form">
         <label for="base">URL base</label><input id="base" type="url" required>
@@ -31,27 +31,27 @@
             </select></div>
           <div><label for="path">Rota do recurso</label><input id="path" value="/api/students" required></div>
         </div>
-        <label for="body">Dados enviados · JSON</label><textarea id="body" rows="7" spellcheck="false"
+        <label for="body">Dados da requisição · JSON</label><textarea id="body" rows="7" spellcheck="false"
           aria-describedby="body-hint"></textarea>
-        <p id="body-hint" class="hint">POST cadastra recursos. GET não envia conteúdo
-          neste ambiente de testes.</p>
-        <button id="send" type="submit">Executar chamada →</button>
+        <p id="body-hint" class="hint">Com POST, você cria recursos. No método GET, o cliente não envia corpo
+          neste laboratório.</p>
+        <button id="send" type="submit">Enviar requisição →</button>
       </form>
-      <h3>Solicitação preparada</h3>
-      <p class="hint">Verbo HTTP, URL e cabeçalhos definidos pelo cliente. O navegador pode incluir cabeçalhos adicionais.</p>
+      <h3>Prévia da requisição</h3>
+      <p class="hint">Confira o método, a URL e os headers definidos pelo cliente. O navegador também pode incluir outros headers.</p>
       <pre id="request-preview"></pre>
     </section>
     <section class="panel" aria-labelledby="response-title">
       <div class="section-title"><span class="step">02</span>
-        <h2 id="response-title">Retorno</h2>
+        <h2 id="response-title">Resposta</h2>
       </div>
-      <div id="status" class="status" role="status" aria-live="polite">Aguardando a primeira chamada</div>
-      <p id="response-meta" class="hint">As informações recebidas serão exibidas aqui.</p>
-      <h3>Cabeçalhos da resposta</h3>
-      <p class="hint">Informações HTTP: formato do conteúdo, cache e dados do servidor.</p>
+      <div id="status" class="status" role="status" aria-live="polite">Aguardando a primeira requisição</div>
+      <p id="response-meta" class="hint">A resposta aparecerá aqui.</p>
+      <h3>Headers da resposta</h3>
+      <p class="hint">Informações HTTP: formato do conteúdo, política de cache e dados do servidor.</p>
       <pre id="response-headers">—</pre>
-      <h3>Conteúdo retornado</h3>
-      <pre id="response-body">Execute um dos exemplos disponíveis para iniciar.</pre>
+      <h3>Corpo da resposta</h3>
+      <pre id="response-body">Escolha um exemplo para visualizar a resposta.</pre>
     </section>
   </main>
 </body>

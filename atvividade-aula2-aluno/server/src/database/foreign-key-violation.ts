@@ -1,4 +1,4 @@
-// SQLSTATE 23503: violação de chave estrangeira no PostgreSQL.
+// No PostgreSQL, SQLSTATE 23503 sinaliza uma violação de chave estrangeira.
 export function isForeignKeyViolation(error: unknown): boolean {
   if (typeof error !== 'object' || error === null) {
     return false;

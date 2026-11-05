@@ -1,12 +1,12 @@
-# Atividade – API HTTP, recursos e fundamentos REST
+﻿# Aula – API HTTP com recursos e princípios REST
 
-## Visão geral
+## Descrição
 
-Este projeto educacional tem como objetivo estudar a troca de informações entre cliente e servidor por meio do protocolo HTTP. O sistema possibilita inserir alunos e disciplinas, além de efetuar matrículas. Para isso, utiliza uma API Express que se conecta diretamente ao PostgreSQL por meio da biblioteca `pg`. Uma interface de página única (SPA), desenvolvida em HTML, CSS e JavaScript, possibilita realizar chamadas e visualizar os retornos diretamente no navegador.
+Projeto didático para explorar a comunicação entre cliente e servidor por HTTP. A aplicação permite cadastrar alunos e disciplinas e registrar matrículas, usando uma API em Express com acesso direto ao PostgreSQL usando `pg`. Uma aplicação de página única (SPA), feita com HTML, CSS e JavaScript, permite enviar requisições e inspecionar as respostas no navegador.
 
-O projeto apresenta recursos endereçados por URLs, formatos JSON, verbos HTTP, status de resposta, validação, consistência dos dados e chamadas independentes. A especificação completa de REST contempla ainda hipermídia (HATEOAS), apresentada teoricamente durante a aula, mas não desenvolvida nesta aplicação.
+O exemplo demonstra recursos identificados por URLs, representações JSON, métodos HTTP, códigos de status, validação, integridade dos dados e requisições independentes. A definição formal de REST também inclui hipermídia (HATEOAS), abordada como conceito na aula e não implementada neste exemplo.
 
-## Organização dos diretórios e arquivos
+## Estrutura de pastas e arquivos
 
 ```text
 .
@@ -51,13 +51,13 @@ As rotas recebem HTTP e retornam JSON; os serviços validam entradas e aplicam a
 
 `createApp(db)` monta o Express sem abrir uma porta ou criar um Pool. `database/connection.ts` configura e exporta o Pool; `main.ts` o fornece para a aplicação e inicia o servidor HTTP. Foram preservados os endpoints, os nomes JSON em camelCase (incluindo matrículas), os códigos de status e o healthcheck.
 
-## Proposta — desenvolver os testes unitários da API
+## Atividade — implementar os testes unitários do servidor
 
-O projeto será disponibilizado sem o diretório `server/test/`. Crie essa pasta e desenvolva os testes apresentados a seguir com Jest, ts-jest e TypeScript, ferramentas que já estão configuradas. Mantenha intactos os arquivos de produção e as configurações existentes; concentre as verificações nos arquivos de testes.
+Você receberá o projeto sem a pasta `server/test/`. Sua tarefa é criar essa pasta e implementar os testes descritos abaixo, usando Jest, ts-jest e TypeScript, já configurados no projeto. Preserve o código de produção e as configurações fornecidas; escreva as verificações nos arquivos de teste.
 
-As verificações não devem depender do PostgreSQL, do Docker nem do arquivo `.env`. Nos serviços, substitua o repositório por dublês; nos repositórios, substitua `Database.query` por uma função simulada. Não abra conexões reais nem inicie o servidor HTTP. Os códigos `400`, `404` e `409` citados abaixo são valores de `statusCode` dos erros lançados pelos serviços, e não respostas obtidas por requisições HTTP.
+Os testes devem ser independentes de PostgreSQL, Docker e `.env`. Nos serviços, substitua o repositório por dublês; nos repositórios, substitua `Database.query` por uma função simulada. Não abra conexões reais nem inicie o servidor HTTP. Os códigos `400`, `404` e `409` citados abaixo são valores de `statusCode` dos erros lançados pelos serviços, e não respostas obtidas por requisições HTTP.
 
-### Estrutura esperada para a entrega
+### Organização da entrega
 
 Crie os nove arquivos a seguir dentro de `server/test/`:
 
@@ -173,7 +173,7 @@ Nas matrículas, tanto a inserção (`RETURNING`) quanto as consultas devem usar
 
 Ao comparar SQL, normalize espaços e quebras de linha para que a formatação não cause falhas. Os valores devem ser enviados no array de parâmetros, separados do texto SQL, usando os marcadores `$1` e `$2` conforme a operação.
 
-### Como executar e validar a atividade
+### Execução e critérios de conclusão
 
 Com Node.js 24 instalado:
 
@@ -290,7 +290,7 @@ O endpoint `/health` verifica se a API responde; ele não consulta o banco. Ajus
 
 O Nginx encaminha as chamadas `/api` da página para o Express pela rede do Compose. Mantenha o endereço base da tela como `http://localhost:8080`: assim, página e requisições usam a mesma origem. Abrir o HTML diretamente ou apontar para outra origem pode exigir configuração de CORS na API.
 
-### 4. Finalizar os serviços
+### 4. Encerrar a execução
 
 ```bash
 docker compose down
@@ -298,9 +298,9 @@ docker compose down
 
 O volume `aula3_database_data` preserva os dados. `init.sql` e `seed.sql` são executados, nessa ordem, apenas na primeira inicialização de um diretório de dados vazio. Reconstruir as imagens não reaplica esses scripts em um banco existente.
 
-## Guia da interface
+## Explicação sobre a tela
 
-### Painel 01 — Solicitação
+### Painel 01 — Requisição
 
 - **Operação:** preenche o formulário com uma chamada de alunos, disciplinas ou matrículas. Há também exemplos de erros HTTP.
 - **Endereço base:** origem para a qual a chamada será enviada; por padrão, utiliza o endereço da própria página.
@@ -312,7 +312,7 @@ O volume `aula3_database_data` preserva os dados. `init.sql` e `seed.sql` são e
 
 Selecionar um exemplo apenas preenche o formulário. A chamada acontece ao clicar em **Enviar requisição**. Operações `POST` alteram os dados reais do banco.
 
-### Painel 02 — Retorno
+### Painel 02 — Resposta
 
 - **Status HTTP:** apresenta o código retornado, destacando sucesso ou erro.
 - **Metadados:** mostram duração observada pelo cliente, quantidade de bytes do corpo recebido e URL final. O tamanho não representa todo o tráfego HTTP.
@@ -323,7 +323,7 @@ Os headers exibidos passam pelo proxy Nginx; headers restritos pelo navegador, c
 
 Respostas `400`, `404` e `409` são respostas HTTP e aparecem com seus headers e corpo. Uma falha de conexão é apresentada separadamente, sem inventar um status HTTP. O cliente limita a espera a 15 segundos.
 
-### Sequência sugerida para os testes em aula
+### Roteiro de teste na aula
 
 1. Escolha **Alunos · listar** e envie a requisição. Observe o status `200`, os headers e o array JSON.
 2. Use **Alunos · criar** para cadastrar o RA `258099`. Observe `201`. Reenvie a chamada para observar `409` por RA duplicado.

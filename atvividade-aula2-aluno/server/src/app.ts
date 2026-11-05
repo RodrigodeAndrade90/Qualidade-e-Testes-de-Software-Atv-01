@@ -12,7 +12,7 @@ import { studentsRoutes } from "./modules/students/students.routes";
 import { coursesRoutes } from "./modules/courses/courses.routes";
 import { enrollmentsRoutes } from "./modules/enrollments/enrollments.routes";
 
-// Criar a aplicação não abre porta nem cria conexões com o banco.
+// Montar a aplicação não abre uma porta nem inicia conexões com o banco.
 export function createApp(db: Database) {
   const app = express();
   app.use(express.json());
@@ -21,7 +21,7 @@ export function createApp(db: Database) {
     res.json({ status: "ok" });
   });
 
-  // Cada serviço usa um repositório para acessar o banco.
+  // Os serviços acessam o banco por meio de seus repositórios.
   const studentRepository = new PgStudentRepository(db);
   const courseRepository = new PgCourseRepository(db);
   const enrollmentRepository = new PgEnrollmentRepository(db);
@@ -30,7 +30,7 @@ export function createApp(db: Database) {
   const coursesService = new CoursesService(courseRepository);
   const enrollmentsService = new EnrollmentsService(enrollmentRepository);
 
-  // Encaminha as requisições para as rotas de cada recurso.
+  // Direciona cada requisição às rotas do recurso correspondente.
   app.use("/api/students", studentsRoutes(studentsService));
   app.use("/api/courses", coursesRoutes(coursesService));
   app.use("/api/enrollments", enrollmentsRoutes(enrollmentsService));
@@ -39,7 +39,7 @@ export function createApp(db: Database) {
     next(new HttpError(404, "Rota não encontrada."));
   });
 
-  // O Express identifica o tratamento de erros pelos quatro parâmetros.
+  // O Express reconhece este middleware de erro pelos quatro parâmetros.
   const errorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
     let statusCode = 500;
     let message = "Erro interno do servidor.";

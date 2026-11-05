@@ -1,6 +1,6 @@
 import { Pool, type QueryResultRow } from "pg";
 
-// Configura o acesso ao PostgreSQL com as variáveis do ambiente.
+// Define a conexão com PostgreSQL usando as variáveis de ambiente.
 export const pool = new Pool({
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT || 5432),
@@ -13,7 +13,7 @@ pool.on("error", (error) => {
   console.error("Erro na conexão com o PostgreSQL:", error);
 });
 
-// Pool satisfaz esta interface; testes podem fornecer um substituto com query().
+// O Pool implementa esta interface; nos testes, query() pode ser simulada.
 export interface Database {
   query<T extends QueryResultRow>(sql: string, values?: unknown[]): Promise<{ rows: T[] }>;
 }

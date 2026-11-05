@@ -46,17 +46,17 @@ INSERT INTO courses (id, name) VALUES
     (38, 'Ética Profissional e Patente'),
     (39, 'Inglês IV');
 
--- Sincroniza a sequência após inserir IDs explícitos.
+-- Ajusta a sequência para continuar depois dos IDs inseridos manualmente.
 SELECT setval(pg_get_serial_sequence('courses', 'id'), (SELECT MAX(id) FROM courses));
 
 INSERT INTO enrollments (student_ra, course_id) VALUES
-    -- Ana Clara: 5 disciplinas.
+    -- Ana Clara está matriculada em 5 disciplinas.
     (258001, 1),
     (258001, 2),
     (258001, 3),
     (258001, 4),
     (258001, 5),
-    -- Bruno Henrique: 7 disciplinas.
+    -- Bruno Henrique está matriculado em 7 disciplinas.
     (258002, 6),
     (258002, 7),
     (258002, 8),
@@ -64,7 +64,7 @@ INSERT INTO enrollments (student_ra, course_id) VALUES
     (258002, 10),
     (258002, 11),
     (258002, 12),
-    -- Camila: 10 disciplinas.
+    -- Camila está matriculada em 10 disciplinas.
     (258003, 13),
     (258003, 14),
     (258003, 15),
