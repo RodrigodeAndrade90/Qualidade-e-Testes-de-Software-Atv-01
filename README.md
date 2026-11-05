@@ -1,4 +1,4 @@
-**# Atividade 1 --- Mocks e Injeção de Dependência 
+# Atividade 1 --- Mocks e Injeção de Dependência 
 
 Projeto desenvolvido para a disciplina, contendo a implementação dos
 testes unitários localizados em `server/test/`.
@@ -52,4 +52,3 @@ do README original do projeto (disponível em
     cd atvividade-aula2-aluno/atvividade-aula2-aluno/server
     npm ci
     npm test
-**
